@@ -2,12 +2,6 @@
 
     # to connect database
     $conn=mysqli_connect('localhost','root','','animaldata');
-
-
-    // if(isset($_POST['submit'])){
-    // if(isset($_POST['filterpage'])){
-    //     $filter = $_POST['filterform'];
-    // }
     
     #if form submitted get values from post method
     if(isset($_POST['submit'])){

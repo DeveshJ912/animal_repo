@@ -121,8 +121,6 @@
             } 
         }
 
-
-
             var first=document.getElementById("fn").innerHTML = Math.floor(Math.random() * 100);
             var second=document.getElementById("sn").innerHTML = Math.floor(Math.random() * 100);
             console.log(first+' '+second);
@@ -132,9 +130,7 @@
             function verify(){
                 console.log("vgvvjv "+document.getElementById("cap").value);
 
-                // console.log(document.getElementById("cap").innerHTML)
                 var user = document.getElementById("cap").value;
-                // console.log(document.getElementById("cap"))
                 if(sum==user){
                     //document.getElementById("submitbutton").style.display="block";
                     document.getElementById("submitbutton").disabled=false;

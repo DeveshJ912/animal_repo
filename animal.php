@@ -1,54 +1,8 @@
 <?php
-
     # to connect database
      $conn=mysqli_connect('localhost','root','','animaldata');
-
-
-//     if(isset($_POST['submit'])){
-//     if(isset($_POST['filterpage'])){
-//         $filter = $_POST['filterform'];
-//     }
-    
-//     if(isset($_POST['submit'])){
-//         $name=$_POST['name'];
-//         $img=$_FILES['img'];
-//         $life=$_POST['life'];
-//         $desc=$_POST['desc'];
-//         $category=$_POST['category'];
-        
-//         $target_Path = "uploads/";
-//         $target_Path = $target_Path.basename( $_FILES['img']['name'] );
-//         move_uploaded_file( $_FILES['img']['tmp_name'], $target_Path );
-//         $path = "uploads/".$_FILES['img']['name'];
-//         //echo "<pre>";print_r($_FILES);
-    
-     
-//         $sql = "INSERT INTO animal(name, category,img,descinfo,life)VALUES('$name','$category','$path','$desc','$life')";
-//         if ($conn->query($sql) === TRUE) {
-//             echo "";
-//           } else {
-//             echo "Error: " . $sql . "<br>" . $conn->error;
-//           }
-    
-        
-//     }
-    
-// }
 ?>
-   
-
-
-
-
-
-   <?php 
-
-        
-
-        
-
-       
-       
+<?php      
 if(isset($_POST['filterpage'])){
     
     #assigning category and life expectancy values
@@ -122,44 +76,14 @@ while($row=mysqli_fetch_array($counter)){
     $c=$new_count;
 } 
 
-
-    
-    
-
 }
 
 #showing visitors number
 $c = $conn->query("SELECT * FROM counter");
 $row=mysqli_fetch_array($c);
 $c = $row['counts'];
-//echo "<b>Total Visitors: $c</b>";
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
 
 <html lang="en">
 
@@ -244,108 +168,11 @@ $c = $row['counts'];
             
            
         </div>
-
-        
-        
         <a href="submission.php"><button id="add" >ADD ANIMAL</button></a>
         <?php echo "<b>Total Visitors:$c</b>";?>
         <hr>
         <?php 
-
         
-
-        
-
-       
-       
-        // if(isset($_POST['filterpage'])){
-            
-        //     #assigning category and life expectancy values
-        //     $exp=$_POST['filter_life'];
-        //     $cat=$_POST['filter_cat'];
-
-        //     #checking check box values for alphabetically sorting
-        //     if(isset($_POST['alpha'])){
-        //         $alpha=$_POST['alpha'];
-                
-        //     } else{
-        //         $alpha="";
-                
-        //     }
-            
-        //     #checking check box values for submission wise sorting
-        //     if(isset($_POST['sub'])){
-        //         $sub=$_POST['sub'];
-        //     } else{
-        //         $sub="";
-        //     }
-            
-        //    #queries to run by filling filter form
-        //     $pre_query="SELECT * FROM animal";
-        //     $post_query="";
-
-        //     # checking queries for filter variables
-        //     if($cat!='select' && $exp!='select' ){
-        //         $getdata="SELECT * FROM animal WHERE category='$cat' and life='$exp'";
-        //     }
-        //     elseif($cat=='select' && $exp!='select'){
-        //         $getdata="SELECT * FROM animal WHERE life='$exp'";
-        //     }
-        //     elseif($exp=='select' && $cat!='select'){
-        //         $getdata="SELECT * FROM animal WHERE category='$cat'";
-        //     }
-        //     else{
-        //         $getdata="SELECT * FROM animal";
-        //     }
-
-            
-        //     # checking queries for sorting variables
-        //     if($sub=="sub" && $alpha=="alpha"){
-                
-        //         $getdata.=" ORDER BY animalID DESC, name ASC";
-                
-        //     }
-        //     elseif($alpha=="" && $sub=="sub"){
-                
-        //         $getdata.=" ORDER BY animalID DESC";
-        //     }
-        //     elseif($sub=="" && $alpha=="alpha"){
-        //         $getdata.=" ORDER BY name ASC";
-                
-        //     }
-        //     else{
-        //         $getdata;
-        //     }
-        // }
-        // else{
-        //     $getdata="SELECT * FROM animal";
-
-
-            
-        // #counting visitors
-        // $counter =$conn->query("SELECT * FROM counter");
-        // while($row=mysqli_fetch_array($counter)){
-        //     $current_count = $row['counts'];
-        //     $new_count = $current_count+1;
-        //     $update_count= $conn->query("UPDATE counter SET counts='$new_count'");
-        //     $c=$new_count;
-        // } 
-
-        
-            
-            
-
-        // }
-
-        #showing visitors number
-        // $c = $conn->query("SELECT * FROM counter");
-        // $row=mysqli_fetch_array($c);
-        // $c = $row['counts'];
-        // echo "<b>Total Visitors: $c</b>";
-
-
-
-
         #Query to be submit to sql
         $data=$conn->query($getdata);  
         

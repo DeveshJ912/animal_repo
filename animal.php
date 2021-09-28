@@ -3,6 +3,8 @@
      $conn=mysqli_connect('localhost','root','','animaldata');
 ?>
 <?php      
+
+# if filter button is clicked
 if(isset($_POST['filterpage'])){
     
     #assigning category and life expectancy values
@@ -25,43 +27,52 @@ if(isset($_POST['filterpage'])){
         $sub="";
     }
     
-   #queries to run by filling filter form
-    $pre_query="SELECT * FROM animal";
-    $post_query="";
-
+   
     # checking queries for filter variables
+
+    #if both category and life expectancy variables are selected for filter
     if($cat!='select' && $exp!='select' ){
         $getdata="SELECT * FROM animal WHERE category='$cat' and life='$exp'";
     }
+    #if life expectancy variable selected for filter
     elseif($cat=='select' && $exp!='select'){
         $getdata="SELECT * FROM animal WHERE life='$exp'";
     }
+    #if category variable selected for filter
     elseif($exp=='select' && $cat!='select'){
         $getdata="SELECT * FROM animal WHERE category='$cat'";
     }
+
+    #if none was selected
     else{
         $getdata="SELECT * FROM animal";
     }
 
     
     # checking queries for sorting variables
+
+    #if both sort by submission and sort alphabetically selected
     if($sub=="sub" && $alpha=="alpha"){
-        
         $getdata.=" ORDER BY animalID DESC, name ASC";
-        
     }
+
+    #if sort by submission selected
     elseif($alpha=="" && $sub=="sub"){
-        
         $getdata.=" ORDER BY animalID DESC";
     }
+
+    #if sort alphabetically selected
     elseif($sub=="" && $alpha=="alpha"){
         $getdata.=" ORDER BY name ASC";
-        
     }
+
+    #if none was selected
     else{
         $getdata;
     }
 }
+
+# when form submit button click provided all values filled
 else{
     $getdata="SELECT * FROM animal";
 
@@ -89,51 +100,10 @@ $c = $row['counts'];
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Animal</title>
         <style>
-            table, th, td {
-              border: 2px solid black;
-              border-collapse: collapse;
-              margin-left: 40px;
-              margin-top: 40px;
-              width: 1200px;
-              text-align: center;
-
-            }
-            .container{
-                display: inline-block;
-                margin-left: 20px;
-                
-            }
-            #filter{
-                align-self: center;
-                background-color: #3251b9; /* Green */
-                border: none;
-                color: white;
-                padding: 05px 12px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin-right: 30px;
-                cursor: pointer;
-                margin-left: 70px;
-            }
-            #add{
-                align-self: center;
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 5px 12px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin-right: 30px;
-                cursor: pointer;
-                margin-left: 50px;
-            }
+            
         </style>
     </head>
     <body>
@@ -141,6 +111,8 @@ $c = $row['counts'];
         <div class="container">
             <form action='animal.php' method="POST">
                 <input type="hidden" name="filterform" value="1">
+
+                <!-- Category selection in filter -->
                 <label for="category"><b>Category :</b></label>
                 <select id="filter_cat" name="filter_cat">
                     <option value="select">Select</option>
@@ -148,6 +120,8 @@ $c = $row['counts'];
                     <option value="carnivores">Carnivores</option>
                     <option value="omnivores">Omnivores</option>
                 </select>
+
+                <!-- life expectancy selection in filter -->
                 <label for="life"><b>Life Expectency :</b></label>
                 <select id="filter_life" name="filter_life">
                     <option value="select">Select</option>
@@ -157,18 +131,24 @@ $c = $row['counts'];
                     <option value="10+ years">10+ years</option>
                 </select>
 
+                <!-- sort by submission checkbox in filter -->
                 <label for="sortsubmission"> <b>Sort by Submission</b></label>
                 <input type="checkbox" id="sub" name="sub" value="sub">
                     
+                <!-- sort alphabetically checkbox in filter -->
                 <label for="sortalpha"><b>Sort Alphbetically</b></label>
                 <input type="checkbox" id="alpha" name="alpha" value="alpha">
                     
+                <!-- filter button -->
                 <input id="filter" type="submit" name="filterpage" value="Filter">
             </form>
             
            
         </div>
+
+        <!-- add animal button-->
         <a href="submission.php"><button id="add" >ADD ANIMAL</button></a>
+        <!-- visitors count show-->
         <?php echo "<b>Total Visitors:$c</b>";?>
         <hr>
         <?php 
@@ -209,3 +189,4 @@ $c = $row['counts'];
     </body>
 
 </html>
+

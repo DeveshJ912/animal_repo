@@ -78,6 +78,11 @@ else{
 
 
     
+
+}
+
+
+if(!isset($_POST['filterpage'])){
 #counting visitors
 $counter =$conn->query("SELECT * FROM counter");
 while($row=mysqli_fetch_array($counter)){
@@ -86,7 +91,6 @@ while($row=mysqli_fetch_array($counter)){
     $update_count= $conn->query("UPDATE counter SET counts='$new_count'");
     $c=$new_count;
 } 
-
 }
 
 #showing visitors number
@@ -116,19 +120,20 @@ $c = $row['counts'];
                 <label for="category"><b>Category :</b></label>
                 <select id="filter_cat" name="filter_cat">
                     <option value="select">Select</option>
-                    <option value="herbivores">Herbivores</option>
-                    <option value="carnivores">Carnivores</option>
-                    <option value="omnivores">Omnivores</option>
+                    <option <?php if (isset($cat) && $cat=="herbivores") echo "selected";?>>herbivores</option>
+                    <option <?php if (isset($cat) && $cat=="omnivores") echo "selected";?>>omnivores</option>
+                    <option <?php if (isset($cat) && $cat=="carnivores") echo "selected";?>>carnivores</option>
+                    
                 </select>
 
                 <!-- life expectancy selection in filter -->
                 <label for="life"><b>Life Expectency :</b></label>
                 <select id="filter_life" name="filter_life">
-                    <option value="select">Select</option>
-                    <option value="0-1 year">0-1 year</option>
-                    <option value="1-5 years">1-5 years</option>
-                    <option value="5-10 years">5-10 years</option>
-                    <option value="10+ years">10+ years</option>
+                <option value="select">select</option>
+                <option <?php if (isset($exp) && $exp=="0-1 year") echo "selected";?>>0-1 year</option>
+                <option <?php if (isset($exp) && $exp=="1-5 years") echo "selected";?>>1-5 years</option>
+                <option <?php if (isset($exp) && $exp=="5-10 years") echo "selected";?>>5-10 years</option>
+                <option <?php if (isset($exp) && $exp=="10+ years") echo "selected";?>>10+ years</option>
                 </select>
 
                 <!-- sort by submission checkbox in filter -->
@@ -155,7 +160,9 @@ $c = $row['counts'];
         
         #Query to be submit to sql
         $data=$conn->query($getdata);  
-        
+        $rowdata=mysqli_num_rows($data); 
+        if($rowdata >0){
+
         #creating table in html
         echo "<table>";
         echo "<tr>
@@ -185,6 +192,11 @@ $c = $row['counts'];
             echo "</td></tr>";
         }
         echo "</table>"; 
+
+    }
+    else{
+        echo "<h2 style='text-align: center;'>No Records Found!</h2>";
+    }
         ?>
     </body>
 

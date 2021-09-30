@@ -13,6 +13,9 @@
     $nameErr = $imgErr = $catErr = $descErr = $captchaErr= "";
     $name = $img = $category = $lifeErr = $desc = "";
     $valid ="";
+    $validname="";
+    $validdesc="";
+    $validimg="";
     $num1=$num2=0;
     
     
@@ -30,14 +33,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid=false;
   } else {
     $name = test_input($_POST["name"]);
+    
+    if($name== ""){
+      $nameErr = "Name is required";
+      $valid=false;
+
+      
+    } else {
+      $name = $name;
+      $validname=true;
+    }
+
+
   }
 
+  
   #checking if img is empty or not
   if (empty($_FILES['img']['tmp_name'])) {
     $imgErr = "Image is required";
     $valid=false;
   } else {
-    $img = ($_FILES["img"]);
+    $img = ($_FILES["img"]['name']);
+
+    if($img== ""){
+      $nameErr = "Image is required";
+      $validimg=false;
+
+      
+    } else {
+      $img = $img;
+      $validimg=true;
+    }
     
   }
     
@@ -47,6 +73,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid=false;
   } else {
     $desc = test_input($_POST["desc"]);
+
+    if($desc== ""){
+      $descErr = "Description is required";
+      $valid=false;
+
+      
+    } else {
+      $desc = $desc;
+      $validdesc=true;
+    }
+
+
+
   }
 
   #checking if life expectation is empty or not
@@ -91,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 # $valid variable is true if all form values are present.
-if($valid){
+if($valid && $validname && $validdesc && $validimg){
     
 
     # to connect database
@@ -99,10 +138,13 @@ if($valid){
     
     #if form submitted get values from post method
     if(isset($_POST['submit'])){
-        $name=$_POST['name'];
+
+        
+        $name=$name;
         $img=$_FILES['img'];
         $life=$_POST['life'];
-        $desc=$_POST['desc'];
+        $desc=$desc;
+        $img=$img;
         $category=$_POST['category'];
         
         #to save image in uploads folder
@@ -130,6 +172,7 @@ if($valid){
 
 #to remove extra blank spaces and slashes
 function test_input($data) {
+ 
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
@@ -155,11 +198,11 @@ function test_input($data) {
                     <label for="Category"><b>Category:</b></label>
                     <span class="error">* <?php echo $catErr;?></span>
                     <div class="radio">
-                        <input type="radio" id="herbivores" name="category"  value="herbivores">
+                    <input type="radio" id="herbivores" name="category"  value="herbivores" <?php if (isset($_POST['category']) && $_POST['category'] == 'herbivores') echo ' checked="checked"';?>>
                         <label >herbivores</label><br>
-                        <input type="radio" id="omnivores" name="category" value="omnivores">
+                        <input type="radio" id="omnivores" name="category" value="omnivores" <?php if (isset($_POST['category']) && $_POST['category'] == 'omnivores') echo ' checked="checked"';?>>
                         <label >omnivores</label><br>
-                        <input type="radio" id="carnivores" name="category" value="carnivores">
+                        <input type="radio" id="carnivores" name="category" value="carnivores" <?php if (isset($_POST['category']) && $_POST['category'] == 'carnivores') echo ' checked="checked"';?>>
                         <label >carnivores</label><br>
                     </div>
                 </div>
@@ -189,10 +232,10 @@ function test_input($data) {
                 <label for="life"><b>Life expectancy :</b></label>
                     <select id="life" name="life">
                         <option value="select">select</option>
-                        <option id="0-1 year" value="0-1 year">0-1 year</option>
-                        <option id="1-5 years" value="1-5 years">1-5 years</option>
-                        <option id="5-10 year" value="5-10 years">5-10 years</option>
-                        <option id="10+ years" value="10+ years">10+ years</option>
+                        <option <?php if (isset($life) && $life=="0-1 year") echo "selected";?>>0-1 year</option>
+                        <option <?php if (isset($life) && $life=="1-5 years") echo "selected";?>>1-5 years</option>
+                        <option <?php if (isset($life) && $life=="5-10 years") echo "selected";?>>5-10 years</option>
+                        <option <?php if (isset($life) && $life=="10+ years") echo "selected";?>>10+ years</option>
                     </select>
                     <span class="error">* <?php echo $lifeErr;?></span>
                 </div>
@@ -208,7 +251,7 @@ function test_input($data) {
                     <span class="error">* <?php echo $captchaErr;?></span>
                     <br>
                     <br>
-                    <input type="number"  id="number" name="number" placeholder="Enter Captcha Here">
+                    <input type="text"  id="number" name="number" placeholder="Enter Captcha Here">
                     <br>
                 </div>
                 <br>

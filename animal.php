@@ -138,11 +138,11 @@ $c = $row['counts'];
 
                 <!-- sort by submission checkbox in filter -->
                 <label for="sortsubmission"> <b>Sort by Submission</b></label>
-                <input type="checkbox" id="sub" name="sub" value="sub">
+                <input type="checkbox" id="sub" name="sub" value="sub" <?php if(isset($_POST['sub'])) echo "checked='checked'"; ?>>
                     
                 <!-- sort alphabetically checkbox in filter -->
                 <label for="sortalpha"><b>Sort Alphbetically</b></label>
-                <input type="checkbox" id="alpha" name="alpha" value="alpha">
+                <input type="checkbox" id="alpha" name="alpha" value="alpha" <?php if(isset($_POST['alpha'])) echo "checked='checked'"; ?>>
                     
                 <!-- filter button -->
                 <input id="filter" type="submit" name="filterpage" value="Filter">

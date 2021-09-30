@@ -152,6 +152,7 @@ $c = $row['counts'];
         </div>
 
         <!-- add animal button-->
+        
         <a href="submission.php"><button id="add" >ADD ANIMAL</button></a>
         <!-- visitors count show-->
         <?php echo "<b>Total Visitors:$c</b>";?>

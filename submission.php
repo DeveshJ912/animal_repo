@@ -257,10 +257,13 @@ function test_input($data) {
                 <br>
                 <!-- submit button in form -->
                 <input  id = "submit"   type="submit" name="submit" value="Submit">
+
+                
                 
             </form>
-            
-            
+            <div class="backton">
+            <a  href="animal.php"><button id="backbutton">Back</button></a>
+          </div>
         </div>
         <script>
             
